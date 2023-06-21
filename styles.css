@@ -1,3 +1,28 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  outline: 0;
+  transition: all 0.5s ease;
+}
+
 body {
-  background-color: #d8d8d8;
+  font-family: sans-serif;
+  background-image: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(176, 229, 208, 1) 42%,
+    rgba(92, 202, 238, 0.41) 93.6%
+  );
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.main-container {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  place-items: center;
 }
