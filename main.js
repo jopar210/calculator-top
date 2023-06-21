@@ -6,6 +6,11 @@ let fistNumber;
 let operator;
 let secondNumber;
 
+let isDark = true;
+const themeToggleBtn = document.querySelector(".theme-toggler");
+const calculator = document.querySelector(".calculator");
+const toggleIcon = document.querySelector(".toggler-icon");
+
 ////////////////////////////////////////////////////////
 // FUNCTIONS
 ////////////////////////////////////////////////////////
@@ -48,3 +53,13 @@ const operate = function (num1, operator, num2) {
     }
   }
 };
+
+////////////////////////////////////////////////////////
+// EVENTS
+////////////////////////////////////////////////////////
+
+themeToggleBtn.addEventListener("click", () => {
+  calculator.classList.toggle("dark");
+  themeToggleBtn.classList.toggle("active");
+  isDark = !isDark;
+});
