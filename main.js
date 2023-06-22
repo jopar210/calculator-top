@@ -7,9 +7,15 @@ let operator;
 let secondNumber;
 
 let isDark = true;
+const body = document.querySelector("body");
 const themeToggleBtn = document.querySelector(".theme-toggler");
-const calculator = document.querySelector(".calculator");
 const toggleIcon = document.querySelector(".toggler-icon");
+const calculator = document.querySelector(".calculator");
+const display = document.querySelector(".display");
+const equal = document.querySelector("#equal");
+const backspace = document.querySelector("#backspace");
+const clear = document.querySelector("#clear");
+const numbers = document.querySelectorAll(".btn-number");
 
 ////////////////////////////////////////////////////////
 // FUNCTIONS
@@ -31,10 +37,18 @@ const divide = function (num1, num2) {
   return num1 / num2;
 };
 
-const clear = function () {
+const remainder = function (num1, num2) {
+  return num1 % num2;
+};
+
+const clearScreen = function () {
   fistNumber = 0;
   operator = null;
   secondNumber = 0;
+};
+
+const deleteLastInput = function () {
+  // DELETE LAST INPUT
 };
 
 const operate = function (num1, operator, num2) {
@@ -51,6 +65,9 @@ const operate = function (num1, operator, num2) {
     case "/": {
       return divide(num1, num2);
     }
+    case "%": {
+      return remainder(num1, num2);
+    }
   }
 };
 
@@ -60,6 +77,14 @@ const operate = function (num1, operator, num2) {
 
 themeToggleBtn.addEventListener("click", () => {
   calculator.classList.toggle("dark");
+  body.classList.toggle("dark");
   themeToggleBtn.classList.toggle("active");
   isDark = !isDark;
+});
+
+numbers.forEach((num) => {
+  num.addEventListener("click", () => {
+    console.log(num.id);
+    return num;
+  });
 });

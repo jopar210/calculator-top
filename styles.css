@@ -110,27 +110,41 @@ button#equal {
   background-color: #fff;
 }
 
+body.dark {
+  background-image: linear-gradient(
+    86.3deg,
+    rgba(0, 119, 182, 1) 3.6%,
+    rgba(8, 24, 68, 1) 87.6%
+  );
+}
+
 .calculator.display {
   color: #0a1e23;
 }
 
 .calculator button#clear {
-  background-color: #49a19a;
+  background-color: #bdcdd6;
+  color: #000;
+}
+
+.calculator button#backspace {
+  background-color: #bdcdd6;
   color: #000;
 }
 
 .calculator button.btn-number {
-  background-color: #c1fcf6;
+  background-color: #c1ece4;
+
   color: #000;
 }
 
 .calculator button.btn-operator {
-  background-color: #81d8d0;
+  background-color: #6096b4;
   color: #000;
 }
 
 .calculator button.btn-equal {
-  background-color: #49a19a;
+  background-color: #bdcdd6;
   color: #000;
 }
 
@@ -145,6 +159,11 @@ button#equal {
 }
 
 .calculator.dark button#clear {
+  background-color: #1b2f38;
+  color: #fff;
+}
+
+.calculator.dark button#backspace {
   background-color: #1b2f38;
   color: #fff;
 }
