@@ -2,9 +2,9 @@
 // VARIABLES
 ////////////////////////////////////////////////////////
 
-let fistNumber;
-let operator;
-let secondNumber;
+let fistNumber = "";
+let operator = "";
+let secondNumber = "";
 
 let isDark = true;
 const body = document.querySelector("body");
@@ -78,13 +78,18 @@ const operate = function (num1, operator, num2) {
 themeToggleBtn.addEventListener("click", () => {
   calculator.classList.toggle("dark");
   body.classList.toggle("dark");
+  display.classList.toggle("dark");
   themeToggleBtn.classList.toggle("active");
   isDark = !isDark;
 });
 
 numbers.forEach((num) => {
   num.addEventListener("click", () => {
-    console.log(num.id);
-    return num;
+    if (operator == "") {
+      fistNumber += num.id;
+      display.textContent = fistNumber;
+    } else {
+      secondNumber += num.id;
+    }
   });
 });
