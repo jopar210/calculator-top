@@ -5,6 +5,7 @@
 let fistNumber = "";
 let operator = "";
 let secondNumber = "";
+let result = "";
 
 let isDark = true;
 const body = document.querySelector("body");
@@ -42,10 +43,14 @@ const remainder = function (num1, num2) {
   return num1 % num2;
 };
 
-const clearScreen = function () {
+const clearInputs = function () {
   fistNumber = "";
   operator = "";
   secondNumber = "";
+};
+
+const clearScreen = function () {
+  clearInputs();
   display.textContent = "";
 };
 
@@ -102,33 +107,36 @@ numbers.forEach((num) => {
     if (operator === "") {
       fistNumber += num.id;
       display.textContent = fistNumber;
-      console.log(fistNumber);
     } else {
       secondNumber += num.id;
       display.textContent = secondNumber;
-      console.log(fistNumber);
-      console.log(secondNumber);
     }
   });
 });
 
 operators.forEach((op) => {
   op.addEventListener("click", () => {
-    operator = op.id;
-    display.textContent = operator;
-    console.log(operator);
+    if (operator !== "") {
+      result = operate(fistNumber, operator, secondNumber);
+      display.textContent = result;
+      fistNumber = "";
+      secondNumber = "";
+      operator = op.id;
+      fistNumber = result;
+    } else if (fistNumber !== "") {
+      operator = op.id;
+      display.textContent = operator;
+    }
   });
 });
 
 clear.addEventListener("click", clearScreen);
 
 equal.addEventListener("click", () => {
-  display.textContent = display.textContent = operate(
-    fistNumber,
-    operator,
-    secondNumber
-  );
-  console.log(operate(fistNumber, operator, secondNumber));
+  result = operate(fistNumber, operator, secondNumber);
+  display.textContent = result;
+  clearInputs();
+  fistNumber = result;
 });
 
 backspace.addEventListener("click", deleteLastInput);
