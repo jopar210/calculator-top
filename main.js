@@ -16,13 +16,14 @@ const equal = document.querySelector("#equal");
 const backspace = document.querySelector("#backspace");
 const clear = document.querySelector("#clear");
 const numbers = document.querySelectorAll(".btn-number");
+const operators = document.querySelectorAll(".btn-operator");
 
 ////////////////////////////////////////////////////////
 // FUNCTIONS
 ////////////////////////////////////////////////////////
 
 const add = function (num1, num2) {
-  return num1 + num2;
+  return Number(num1) + Number(num2);
 };
 
 const subtract = function (num1, num2) {
@@ -42,13 +43,26 @@ const remainder = function (num1, num2) {
 };
 
 const clearScreen = function () {
-  fistNumber = 0;
-  operator = null;
-  secondNumber = 0;
+  fistNumber = "";
+  operator = "";
+  secondNumber = "";
+  display.textContent = "";
 };
 
 const deleteLastInput = function () {
-  // DELETE LAST INPUT
+  if (operator === "") {
+    fistNumber = fistNumber.slice(0, -1);
+    initialInput = display.textContent;
+    display.textContent = initialInput.slice(0, -1);
+  } else if (operator !== "" && secondNumber === "") {
+    operator = operator.slice(0, -1);
+    initialInput = display.textContent;
+    display.textContent = initialInput.slice(0, -1);
+  } else {
+    secondNumber = secondNumber.slice(0, -1);
+    initialInput = display.textContent;
+    display.textContent = initialInput.slice(0, -1);
+  }
 };
 
 const operate = function (num1, operator, num2) {
@@ -85,11 +99,36 @@ themeToggleBtn.addEventListener("click", () => {
 
 numbers.forEach((num) => {
   num.addEventListener("click", () => {
-    if (operator == "") {
+    if (operator === "") {
       fistNumber += num.id;
       display.textContent = fistNumber;
+      console.log(fistNumber);
     } else {
       secondNumber += num.id;
+      display.textContent = secondNumber;
+      console.log(fistNumber);
+      console.log(secondNumber);
     }
   });
 });
+
+operators.forEach((op) => {
+  op.addEventListener("click", () => {
+    operator = op.id;
+    display.textContent = operator;
+    console.log(operator);
+  });
+});
+
+clear.addEventListener("click", clearScreen);
+
+equal.addEventListener("click", () => {
+  display.textContent = display.textContent = operate(
+    fistNumber,
+    operator,
+    secondNumber
+  );
+  console.log(operate(fistNumber, operator, secondNumber));
+});
+
+backspace.addEventListener("click", deleteLastInput);
