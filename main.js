@@ -24,23 +24,43 @@ const operators = document.querySelectorAll(".btn-operator");
 ////////////////////////////////////////////////////////
 
 const add = function (num1, num2) {
-  return Number(num1) + Number(num2);
+  if (num2) {
+    return Number(num1) + Number(num2);
+  } else {
+    secondNumber = "";
+  }
 };
 
 const subtract = function (num1, num2) {
-  return num1 - num2;
+  if (num2) {
+    return num1 - num2;
+  } else {
+    secondNumber = "";
+  }
 };
 
 const multiply = function (num1, num2) {
-  return num1 * num2;
+  if (num2) {
+    return num1 * num2;
+  } else {
+    secondNumber = "";
+  }
 };
 
 const divide = function (num1, num2) {
-  return num1 / num2;
+  if (num2) {
+    return num1 / num2;
+  } else {
+    secondNumber = "";
+  }
 };
 
 const remainder = function (num1, num2) {
-  return num1 % num2;
+  if (num2) {
+    return num1 % num2;
+  } else {
+    secondNumber = "";
+  }
 };
 
 const clearInputs = function () {
@@ -105,9 +125,17 @@ themeToggleBtn.addEventListener("click", () => {
 numbers.forEach((num) => {
   num.addEventListener("click", () => {
     if (operator === "") {
+      if (num.id === "." && fistNumber.includes(".")) {
+        // Ignore if "." is already present in firstNumber
+        return;
+      }
       fistNumber += num.id;
       display.textContent = fistNumber.slice(0, 7); // Limit display to 7 characters
     } else {
+      if (num.id === "." && secondNumber.includes(".")) {
+        // Ignore if "." is already present in firstNumber
+        return;
+      }
       secondNumber += num.id;
       display.textContent = secondNumber.slice(0, 7);
     }
@@ -117,6 +145,12 @@ numbers.forEach((num) => {
 operators.forEach((op) => {
   op.addEventListener("click", () => {
     if (operator !== "") {
+      if (operator === "/" && secondNumber === "0") {
+        // Division by zero error
+        display.textContent = "Error: Infinity";
+        clearInputs();
+        return;
+      }
       result = operate(fistNumber, operator, secondNumber);
       display.textContent = result.toString().slice(0, 7);
       fistNumber = "";
@@ -133,6 +167,17 @@ operators.forEach((op) => {
 clear.addEventListener("click", clearScreen);
 
 equal.addEventListener("click", () => {
+  if (fistNumber === "" || secondNumber === "" || operator === "") {
+    // Ignore if any of the required inputs are missing
+    return;
+  }
+  if (operator === "/" && secondNumber === "0") {
+    // Division by zero error
+    display.textContent = "Error: Infinity";
+    clearInputs();
+    return;
+  }
+
   result = operate(fistNumber, operator, secondNumber);
   let roundedResult = result.toString();
 
