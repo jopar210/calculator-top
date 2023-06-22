@@ -106,10 +106,10 @@ numbers.forEach((num) => {
   num.addEventListener("click", () => {
     if (operator === "") {
       fistNumber += num.id;
-      display.textContent = fistNumber;
+      display.textContent = fistNumber.slice(0, 7); // Limit display to 7 characters
     } else {
       secondNumber += num.id;
-      display.textContent = secondNumber;
+      display.textContent = secondNumber.slice(0, 7);
     }
   });
 });
@@ -118,7 +118,7 @@ operators.forEach((op) => {
   op.addEventListener("click", () => {
     if (operator !== "") {
       result = operate(fistNumber, operator, secondNumber);
-      display.textContent = result;
+      display.textContent = result.toString().slice(0, 7);
       fistNumber = "";
       secondNumber = "";
       operator = op.id;
@@ -134,9 +134,15 @@ clear.addEventListener("click", clearScreen);
 
 equal.addEventListener("click", () => {
   result = operate(fistNumber, operator, secondNumber);
-  display.textContent = result;
+  let roundedResult = result.toString();
+
+  if (roundedResult.length > 7) {
+    roundedResult = result.toExponential(4); // Convert to scientific notation with 4 decimal places
+  }
+
+  display.textContent = roundedResult;
   clearInputs();
-  fistNumber = result;
+  fistNumber = roundedResult;
 });
 
 backspace.addEventListener("click", deleteLastInput);
